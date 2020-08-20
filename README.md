@@ -1,2 +1,2 @@
 # recuperaSICOES
-Captura, acumula y descarga datos de convocatorias de SICOES
+Captura, acumula y descarga tablas de convocatorias nacionales de SICOES
