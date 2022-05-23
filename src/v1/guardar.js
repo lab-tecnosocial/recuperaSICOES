@@ -1,5 +1,5 @@
 function guardarTabla() {
-    let archivo = 'CUCE, Entidad, Tipo contratacion, Modalidad, Objeto de contratacion, Estado, Subasta, Fecha presentacion, Fecha pubicacion, Archivos, Formularios, Ficha\n';
+    let archivo = 'cuce, entidad, tipo_contratacion, modalidad, objeto, estado, subasta, fecha_presentacion, fecha_publicacion, archivos, formularios, ficha\n';
     arregloBi.forEach(function (fila) {
         archivo += fila.join(',');
         archivo += '\n';
