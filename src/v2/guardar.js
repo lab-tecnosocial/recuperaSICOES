@@ -7,7 +7,7 @@ function guardarTabla() {
 
     console.log('Descargando: ' + 'tabla con ' + arregloBi.length + ' registros.');
     let elementOculto = document.createElement('a');
-    elementOculto.href = 'data:text/csv;charset=utf-8,' + encodeURI(archivo);
+    elementOculto.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(archivo);
     elementOculto.target = '_blank';
     elementOculto.download = 'datos.csv';
     elementOculto.click();
