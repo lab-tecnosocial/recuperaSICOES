@@ -46,8 +46,12 @@ function capturaTabla() {
             else if (j === 12) {
                 fila.push(document.querySelector(`#tablaAvanzada > tbody > tr:nth-child(${i}) > td:nth-child(${j})`).firstElementChild.href);
             
+            }  
+            else if (j === 13) {
+                let str = document.querySelector(`#tablaAvanzada > tbody > tr:nth-child(${i}) > td:nth-child(${j})`).innerHTML;
+                fila.push('"' + str + '"');
             } 
-            else if (j >= 13 && j <= 20) {
+            else if (j >= 14 && j <= 20) {
                 fila.push(document.querySelector(`#tablaAvanzada > tbody > tr:nth-child(${i}) > td:nth-child(${j})`).innerHTML);
             }
         }
