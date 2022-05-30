@@ -3,7 +3,8 @@ console.log('Tabla con ' + arregloBi.length + ' registros');
 var pag = document.querySelector("#tablaAvanzada_paginate > nav > ul > li.active").textContent;
 
 function capturaTabla() {
-    for (i = 1; i <= 10; i++) {
+    nFilas = document.querySelector('#tablaAvanzada > tbody').childElementCount;
+    for (i = 1; i <= nFilas; i++) {
         let fila = [];
         for (j = 1; j <= 20; j++) {
             if (j === 1) {

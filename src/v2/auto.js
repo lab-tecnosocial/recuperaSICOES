@@ -8,7 +8,8 @@ La captura se completarán en un tiempo aproximado de ${tiempoMin.toFixed(1)} mi
 
 var intervaloCaptura = setInterval(() => {
     capturaTabla();
-    if(pag === nPag + 1){
+    if(pag === nPag){
+        capturaTabla();
         clearInterval(intervaloCaptura);
         console.log(`Captura terminada.
 Se recolectaron ${arregloBi.length} de ${nRegEsp} registros.
