@@ -3,18 +3,19 @@ console.log('Tabla con ' + arregloBi.length + ' registros');
 var pag = document.querySelector("#tablaAvanzada_paginate > nav > ul > li.active").textContent;
 
 function capturaTabla() {
+    nColumnas = document.querySelector('#tablaAvanzada > thead > tr').childElementCount;
     nFilas = document.querySelector('#tablaAvanzada > tbody').childElementCount;
     for (i = 1; i <= nFilas; i++) {
         let fila = [];
-        for (j = 1; j <= 20; j++) {
+        for (j = 1; j <= nColumnas; j++) {
             if (j === 1) {
                 fila.push(document.querySelector(`#tablaAvanzada > tbody > tr:nth-child(${i}) > td:nth-child(${j})`).innerHTML);
-            } 
+            }
             else if (j === 2) {
                 let str = document.querySelector(`#tablaAvanzada > tbody > tr:nth-child(${i}) > td:nth-child(${j})`).innerHTML;
                 fila.push('"' + str + '"');
-            } 
-            
+            }
+
             else if (j >= 3 && j <= 4) {
                 fila.push(document.querySelector(`#tablaAvanzada > tbody > tr:nth-child(${i}) > td:nth-child(${j})`).innerHTML);
             }
@@ -24,7 +25,7 @@ function capturaTabla() {
                 str = str.replace(/"/g, "'");
                 str = str.replace(/\n/g, " ");
                 fila.push('"' + str + '"');
-            } 
+            }
             else if (j >= 6 && j <= 9) {
                 fila.push(document.querySelector(`#tablaAvanzada > tbody > tr:nth-child(${i}) > td:nth-child(${j})`).innerHTML);
             }
@@ -40,18 +41,18 @@ function capturaTabla() {
                 let stringForm = "";
                 let forms = document.querySelector(`#tablaAvanzada > tbody > tr:nth-child(${i}) > td:nth-child(${j})`).querySelectorAll('a');
                 for (let i = 0; i < forms.length; i++) {
-                    stringForm += i+ 1 + "." + forms[i].innerText + " "
+                    stringForm += i + 1 + "." + forms[i].innerText + " "
                 }
                 fila.push(stringForm);
-            } 
+            }
             else if (j === 12) {
                 fila.push(document.querySelector(`#tablaAvanzada > tbody > tr:nth-child(${i}) > td:nth-child(${j})`).firstElementChild.href);
-            
-            }  
+
+            }
             else if (j === 13) {
                 let str = document.querySelector(`#tablaAvanzada > tbody > tr:nth-child(${i}) > td:nth-child(${j})`).innerHTML;
                 fila.push('"' + str + '"');
-            } 
+            }
             else if (j >= 14 && j <= 20) {
                 fila.push(document.querySelector(`#tablaAvanzada > tbody > tr:nth-child(${i}) > td:nth-child(${j})`).innerHTML);
             }
@@ -78,3 +79,23 @@ function guardarTabla() {
     elementOculto.click();
 
 }
+
+var nPag = Number(document.querySelector('#tablaAvanzada_paginate > nav > ul > li:nth-last-child(2) > a').textContent);
+var nRegEsp = Number(document.querySelector('#tablaAvanzada_paginate > div.dataTables_info').textContent.match(/\d+/)[0]);
+var nSegundos = Number(prompt('Ingrese el tiempo en segundos entre cada captura de página: '));
+var tiempoMin = (nSegundos * nPag) / 60;
+
+console.log(`Se recorreran automáticamente ${nPag} páginas, buscando ${nRegEsp} registros, cada ${nSegundos} segundos.
+La captura se completarán en un tiempo aproximado de ${tiempoMin.toFixed(1)} minutos.`);
+
+var intervaloCaptura = setInterval(() => {
+    capturaTabla();
+    if (pag === nPag) {
+        capturaTabla();
+        clearInterval(intervaloCaptura);
+        console.log(`Captura terminada.
+Se recolectaron ${arregloBi.length} de ${nRegEsp} registros.
+Descargando...`);
+        guardarTabla();
+    }
+}, nSegundos * 1000);
